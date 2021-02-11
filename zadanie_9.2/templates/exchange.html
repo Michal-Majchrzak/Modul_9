@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator walut</title>
+</head>
+<body>
+    <h1>Kalulator walut</h1>
+    <h5>Przelicz wybraną walutę na PLN</h5>
+    <form method="post">
+        <label for="amount">Ile chcesz wymienić</label>
+        {% if last_amount %}
+        <input type="text" id="amount" name="amount" value="{{last_amount}}" required>
+        {% else %}
+        <input type="text" id="amount" name="amount" value="100" required>
+        {% endif %}
+        <label for="currency">Waluta do wymiay</label>
+        <select id="currency" name="currency">
+            {% for currency in currencies %}
+                {% if currency == last_currency %}
+                <option value="{{currency}}" selected>{{currency}}</option>
+                {% else %}
+                <option value="{{currency}}">{{currency}}</option>
+                {% endif %}
+            {% endfor %}
+        </select><br>
+        <input type="submit" value="Przelicz">
+    </form>
+    {% if result %}
+    <h3>{{result}}</h3>
+        {% if used_rate %}
+        <h5>1 {{last_currency}} = {{used_rate}} PLN</h5>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
